@@ -1,0 +1,36 @@
+.toolActive {
+    color: green;
+}
+
+
+.modal-header {
+    cursor: move;
+}
+
+.modal{
+    display: block !important; /* I added this to see the modal, you don't need this */
+}
+
+
+.custom-modal {
+    width: fit-content;
+    height: fit-content;
+    padding: 0 !important;  
+    z-index: 0;
+}
+
+
+#functionsWindow {
+    top: 0%;
+    left: 84%;
+}
+
+#toolsWindow {
+    top: 67%;
+    left: 93%;
+}
+
+#colorWindow {
+    top: 69%;
+    left: 1%;
+}

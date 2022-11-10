@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Kalkulator Graficzny</title>
+	<meta charset="utf-8">
+	<link rel="icon" href="img/favicon.png">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/windows.css">
+	<script src="https://kit.fontawesome.com/026e6e202d.js" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
+	<script type="text/javascript"  src="lib/jquery.awesome-cursor.min.js"></script>
+	<script type="text/javascript" src="lib/iro.js"></script>
+</head>
+<body>
+
+	<div id="mySidebar" class="sidebar">
+		<a href="#">Narysuj funkcje:</a>
+		<br>
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span id="functionSpan" class="input-group-text" onClick="showFunctionColorPicker()">f(x) =</span>
+			</div>
+			<input type="text" id="functionInput" class="form-control" placeholder="x^2">
+		</div>
+		<div id="functionColor" class="functionColorPicker bg-light d-flex justify-content-center" style="margin:0px; padding: 5px;"></div>	
+		<input type="submit" class="form-control" onclick="calcFunction()" value="Rysuj">	
+
+		<br><br>
+		<a>Wzory:</a>
+		<div class="dropdown show">
+			<a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> - Funkcja kwadratowa</a>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+				<a class="dropdown-item">F(x) = ax² + bx + c</a>
+				<a class="dropdown-item">F(x) = (x - p)²</a>
+			</div>
+		</div>
+		<div class="dropdown show">
+			<a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> - Funkcja liniowa</a>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+				<a class="dropdown-item">F(x) = ax + b</a>
+			</div>
+		</div>
+		<div class="dropdown show">
+			<a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> - Funkcja wykładnicza</a>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+				<a class="dropdown-item">F(x) = ax2 + bx + c</a>
+				<a class="dropdown-item">F(x) = (x - p)2</a>
+			</div>
+		</div>
+		<br><br>
+		<a>Autor:</a>
+		<a>Seweryn Skrzypik</a>
+
+	</div>
+
+	<div id="main">
+		<button class="openbtn" onclick="openNav()"><i class="fa-solid fa-bars"></i></button>  
+		<button class="openbtn" onclick="doUndo()"><i class="fa-solid fa-angles-left"></i></button>  
+		<button class="openbtn" onclick="doRedo()"><i class="fa-solid fa-angles-right"></i></button>
+		<button class="openbtn" onclick="reload()"><i class="fa-solid fa-rotate-right"></i></button> 
+		<button class="openbtn" onclick="fullScreen()"><i class="fa-solid fa-expand"></i></button>  
+
+		<button type="button" class="openbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<i class="fa-solid fa-floppy-disk"></i>
+		</button>
+		<div class="dropdown-menu">
+			<a class="dropdown-item" href="#">Załaduj</a>
+			<div class="dropdown-divider"></div>
+			<a class="dropdown-item" href="#">Zapisz</a>
+		</div>
+
+	</div>
+
+	<input type="text" id="typeText" placeholder="text" class="hidden"><!--for tools.js-->
+
+	<canvas id="canvas" style="border:1px solid #d3d3d3;">
+		Your browser does not support the canvas element.
+	</canvas>
+
+	<script type="text/javascript" src="navbar.js"></script>
+
+	<script type="text/javascript" src="tool/ToolListeners.js"></script>	
+	<script type="text/javascript" src="tool/Tool.js"></script>	
+
+	<script type="text/javascript" src="tool/impl/PaletteTool.js"></script>
+	<script type="text/javascript" src="tool/impl/ColorPickerTool.js"></script>
+	<script type="text/javascript" src="tool/impl/EraserTool.js"></script>
+	<script type="text/javascript" src="tool/impl/PaintBrushTool.js"></script>
+	<script type="text/javascript" src="tool/impl/PenTool.js"></script>
+	<script type="text/javascript" src="tool/impl/RulerTool.js"></script>
+	<script type="text/javascript" src="tool/impl/TextTool.js"></script>
+	<script type="text/javascript" src="tool/impl/DragTool.js"></script>
+
+	<script type="text/javascript" src="tool/ToolClientListeners.js"></script>
+	<script type="text/javascript" src="tool/ToolManager.js"></script>
+
+
+	<script type="text/javascript" src="window/WindowListeners.js"></script>
+	<script type="text/javascript" src="window/WindowContext.js"></script>
+	<script type="text/javascript" src="window/Window.js"></script>
+
+	<script type="text/javascript" src="window/impl/ColorPickerWindow.js"></script>
+	<script type="text/javascript" src="window/impl/ColorPickerWindowContext.js"></script>
+
+	<script type="text/javascript" src="window/impl/ToolsWindow.js"></script>
+	<script type="text/javascript" src="window/impl/ToolWindowContext.js"></script>
+
+	<script type="text/javascript" src="window/impl/FunctionsWindow.js"></script>
+	<script type="text/javascript" src="window/impl/FunctionsWindowContext.js"></script>	
+
+	<script type="text/javascript" src="window/WindowManager.js"></script>
+	<script type="text/javascript" src="window/WindowRenderer.js"></script>
+
+	<script type="text/javascript" src="render.js"></script>
+	<script type="text/javascript" src="Sketch.js"></script>
+	<script type="text/javascript" src="index.js"></script>
+</body>
+</html>
