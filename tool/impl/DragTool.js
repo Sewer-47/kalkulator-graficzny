@@ -85,6 +85,7 @@ class DragTool extends Tool {
 	    if (!this.isDragging) {
 	        if (zoomAmount) {
 	            cameraZoom += zoomAmount
+	            cameraOutZoom -= zoomAmount;
 	        }
 	        else if (zoomFactor) {
 	            console.log(zoomFactor)
@@ -93,8 +94,9 @@ class DragTool extends Tool {
 	        
 	        cameraZoom = Math.min(cameraZoom, this.MAX_ZOOM)
 	        cameraZoom = Math.max(cameraZoom, this.MIN_ZOOM)
-	        
-	        console.log(zoomAmount)
+
+	        cameraOutZoom = Math.min(cameraOutZoom, this.MAX_ZOOM)
+	        cameraOutZoom = Math.max(cameraOutZoom, this.MIN_ZOOM)
 	    }
 	}	
 }

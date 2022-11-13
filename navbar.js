@@ -65,7 +65,7 @@ function renderFunction(functionValue, functionColor) {
 }
 
 function reload() {
-	window.location.reload();
+	sketchArray.splice(0,sketchArray.length);
 }
 
 function fullScreen() {

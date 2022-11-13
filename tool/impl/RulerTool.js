@@ -79,8 +79,6 @@ class RulerTool extends Tool {
 					}
 				}
 			}
-			//var distance = firstVector.getX() - secondVector.getX() + firstVector.getY() - secondVector.getY();
-			//distance = distance / 40;
 
 			var distanceX = Math.sqrt(firstVector.getX()**2 + secondVector.getX()**2);
 			var distanceY = Math.sqrt(firstVector.getY()**2 + secondVector.getY()**2);

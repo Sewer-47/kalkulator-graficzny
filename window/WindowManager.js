@@ -9,6 +9,7 @@ class WindowManager {
 			new ColorPickerWindow(),
 			new FunctionsWindow(),
 			new ToolsWindow(),
+			//new SaveWindow(),
 		]) {
 			this.byName.set(window.getName(), window);
 		}

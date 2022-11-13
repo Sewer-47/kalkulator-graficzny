@@ -25,18 +25,35 @@ class Sketch {
 	getY() {
 		return this.position.getY();
 	}
+
+	static fromJson(json) {
+		var parsedJson = JSON.parse(json);
+		var type = parsedJson.type;
+		var color = parsedJson.color;
+		var position = parsedJson.position;
+		switch (type) {
+			case SketchType.POINT:
+				return new PointSketch(new Vector(position.x, position.y), color);
+			case SketchType.TEXT:
+				var text = parsedJson.text;
+				return new TextSketch(new Vector(position.x, position.y), color, text);
+		        break;
+		    case SketchType.FUNCTION:
+				var functionValue = parsedJson.functionValue;
+				return new FunctionSketch(color, functionValue);
+		    case SketchType.LINE:
+		        break;       
+		}
+
+	}
 }
 
-class SketchType {
-	static POINT = new SketchType('point');
-	static FUNCTION = new SketchType('function');
-	static TEXT = new SketchType('text');
-	static LINE = new SketchType('line');
-	static CIRCLE = new SketchType('circle');
-
-	constructor(name) {
-		this.name = name;
-	}
+class SketchType {//jako string bo byly problemy z serializacja
+	static POINT = 'point';
+	static FUNCTION = 'function';
+	static TEXT = 'text';
+	static LINE = 'line';
+	static CIRCLE = 'circle';
 }
 
 class Vector {
@@ -62,6 +79,14 @@ class PointSketch extends Sketch {
 	}
 }
 
+/*
+    steps = 80;
+    context.fillStyle = "#BEBEBE";
+    for (var x = -canvas.width / 2; x <= canvas.width / 2; x = x + steps) {
+        //dziwna konstrukcja, ale chodzi o zaokreglenie, a potem zrobienie liczby zmiennoprzecinkowej
+        var fixedX = parseInt(x / steps, 10).toFixed(1);      
+*/
+
 class FunctionSketch extends Sketch {
 
 	constructor(color, functionValue) {
@@ -74,9 +99,18 @@ class FunctionSketch extends Sketch {
 		this.positionArray = new Array();
 		//replace(/[^-()\d/*+.]/g, '');
 		var replacedX;
+		var skipTimes = 0;
 
 		this.functionValue = this.functionValue.replaceAll("^", "**");
-		for (var x = -10.0; x < 10.0; x += 0.001) {
+
+		var xStart = parseInt(-canvas.width / 2 / 80, 10); 
+		var xEnd = parseInt(canvas.width / 2 / 80, 10); 	
+		for (var x = xStart; x < xEnd; x += 0.001) {
+			if (skipTimes > 0) {
+				skipTimes--;
+				continue;
+			}
+
 			replacedX = x;
 			if (x < 0) {
 				replacedX = "(" + x + ")";
@@ -85,9 +119,10 @@ class FunctionSketch extends Sketch {
 			var result = this.functionValue.replaceAll("x", replacedX);
 			var y = new Function('return ' + result)();
 
-			if (y > 10) {
+			if (y > 10 || y < -10) {
+				skipTimes = 100;
 				continue;
-			}
+			}			
 
 	        this.positionArray.push(new Vector(x, y));
 	    }

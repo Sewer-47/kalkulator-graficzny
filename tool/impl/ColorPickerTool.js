@@ -9,6 +9,13 @@ class ColorPickerTool extends Tool {
 	    var y = event.y;	
 		var data = context.getImageData(x, y, 1, 1).data;
 		var decColor = ((data [0] << 16) + (data [1] << 8) + data [2]).toString(16);
-		currentColor = "#" + decColor;
+
+		var window = windowManager.getByName("Kolory");
+		var colorPicker = window.getColorPicker();
+
+		if (decColor == 0) {
+			return;
+		}
+		colorPicker.color.hexString = "#" + decColor;
 	}	
 }

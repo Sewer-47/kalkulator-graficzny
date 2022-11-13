@@ -21,4 +21,8 @@ class ColorPickerWindow extends Window {
     		currentColor = color.hexString;
 		});
 	}
+
+	getColorPicker() {
+		return this.colorPicker;
+	}
 }

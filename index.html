@@ -23,7 +23,7 @@
 		<br>
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
-				<span id="functionSpan" class="input-group-text" onClick="showFunctionColorPicker()">f(x) =</span>
+				<span id="functionSpan" class="input-group-text">f(x) =</span>
 			</div>
 			<input type="text" id="functionInput" class="form-control" placeholder="x^2">
 		</div>
@@ -69,9 +69,9 @@
 			<i class="fa-solid fa-floppy-disk"></i>
 		</button>
 		<div class="dropdown-menu">
-			<a class="dropdown-item" href="#">Załaduj</a>
+			<a onclick="save()" class="dropdown-item" href="#">Zapisz</a>
 			<div class="dropdown-divider"></div>
-			<a class="dropdown-item" href="#">Zapisz</a>
+			<a onclick="load()" class="dropdown-item" href="#">Załaduj: </a>
 		</div>
 
 	</div>
@@ -112,6 +112,8 @@
 
 	<script type="text/javascript" src="window/impl/FunctionsWindow.js"></script>
 	<script type="text/javascript" src="window/impl/FunctionsWindowContext.js"></script>	
+
+	<script type="text/javascript" src="window/impl/SaveWindow.js"></script>
 
 	<script type="text/javascript" src="window/WindowManager.js"></script>
 	<script type="text/javascript" src="window/WindowRenderer.js"></script>
